@@ -1,30 +1,25 @@
-import { UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import { Button } from "@/components/ui/button";
+import { SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
 
-export default async function AdminPage() {
-  const user = await currentUser();
-
-  if (!user) return null;
-
+export default function AdminPage() {
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <UserButton />
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 p-8">
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-bold">Admin Portal</h1>
+        <p className="text-muted-foreground">
+          Welcome to the administration area. Please select an action below.
+        </p>
       </div>
-      <div className="bg-white shadow rounded-lg p-6">
-        <p className="text-lg mb-4">
-          Welcome back, {user.firstName || user.username}!
-        </p>
-        <p className="text-gray-600">
-          You have successfully logged in as an administrator.
-        </p>
-        <div className="mt-6 p-4 bg-gray-50 rounded border">
-          <h2 className="font-semibold mb-2">Admin Controls</h2>
-          <p className="text-sm text-gray-500">
-            Admin functionality will be implemented here.
-          </p>
-        </div>
+
+      <div className="flex items-center gap-4">
+        <Button asChild>
+          <Link href="/admin/dashboard">Go to Dashboard</Link>
+        </Button>
+
+        <SignOutButton redirectUrl="/">
+          <Button variant="outline">Sign Out</Button>
+        </SignOutButton>
       </div>
     </div>
   );
